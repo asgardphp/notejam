@@ -1,0 +1,64 @@
+Notejam:
+  entities:
+    Note:
+      properties:
+        name:
+        text: longtext
+        pad:
+          type: entity
+          entity: Notejam\Entities\Pad
+      behaviors:
+        \Asgard\Behaviors\TimestampsBehavior:
+    Pad:
+      properties:
+        name:
+        user:
+          type: entity
+          entity: Notejam\Entities\User
+        notes:
+          type: entity
+          entity: Notejam\Entities\Note
+          many: true
+    User:
+      properties:
+        email:
+        password: password
+        pads:
+          type: entity
+          entity: Notejam\Entities\Pad
+          many: true
+  controllers:
+    UserController:
+      actions:
+        signup:
+          route: signup
+        signin:
+          route: signin
+        signout:
+          route: signout
+        forgotPassword:
+          route: forgot-password
+        settings:
+          route: settings
+    NoteController:
+      prefix: notes
+      actions:
+        create:
+          route: create
+        show:
+          route: :node_id
+        edit:
+          route: :note_id/edit
+        delete:
+          route: :note_id/delete
+    PadController:
+      prefix: pads
+      actions:
+        create:
+          route: create
+        show:
+          route: :pad_id
+        edit:
+          route: :pad_id/edit
+        delete:
+          route: :pad_id/delete
