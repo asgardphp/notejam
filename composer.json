@@ -10,10 +10,10 @@
         }
     ],
     "require": {
-        "asgard/asgard": "0.*",
-        "asgard/behaviors": "0.*",
-        "asgard/jsonentities": "0.*",
-        "asgard/composer": "0.*"
+        "asgard/asgard": "@dev",
+        "asgard/behaviors": "@dev",
+        "asgard/jsonentities": "@dev",
+        "asgard/composer": "@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*"

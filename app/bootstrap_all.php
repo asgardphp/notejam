@@ -11,6 +11,7 @@ chdir(__DIR__.'/..');
 
 #Error handler
 $container['errorHandler'] = \Asgard\Debug\ErrorHandler::register()
+	->setDebug($container['config']['debug'])
 	->ignoreDir(__DIR__.'/../vendor/nikic/php-parser/')
 	->ignoreDir(__DIR__.'/../vendor/jeremeamia/SuperClosure/')
 	->setLogPHPErrors($container['config']['log_php_errors']);
@@ -38,8 +39,6 @@ $container['cache'] = new \Asgard\Cache\Cache($driver);
 
 #Loading ORM and Timestamps behavior for all entities
 $container['hooks']->hook('Asgard.Entity.LoadBehaviors', function($chain, \Asgard\Entity\Definition $definition, array &$behaviors) {
-	if(!isset($behaviors['timestamps']))
-		$behaviors[] = new \Asgard\Behaviors\TimestampsBehavior;
 	if(!isset($behaviors['orm']))
 		$behaviors[] = new \Asgard\Orm\ORMBehavior;
 });
@@ -74,3 +73,8 @@ $container['hooks']->hook('Asgard.Http.Start', function($chain, $request) {
 
 #set the EntitiesManager static instance for activerecord-like entities (e.g. new Article or Article::find())
 \Asgard\Entity\EntityManager::setInstance($container['entityManager']);
+
+#flash
+$container['flash']->setCallback(function($msg, $type) {
+	return '<div class="alert alert-'.$type.'">'.$msg.'</div>';
+});

@@ -1,4 +1,8 @@
-<p>Welcome!</p>
-
-<p>Asgard is successfully running. Please see the documentation for help: <a href="http://www.asgardphp.com/docs/quickstart">www.asgardphp.com/docs/quickstart</a></p>
-
+    <?=\Notejam\Viewable\Fragments::sFragment('pads', [$this, $user])?>
+    <div class="thirteen columns content-area">
+          <!--<div class="alert-area">-->
+        <!--<div class="alert alert-success">Note is sucessfully saved</div>-->
+      <!--</div>-->
+      <?=\Notejam\Viewable\Fragments::sFragment('notes', [$request, $user->pads()->notes()])?>
+      <a href="<?=$this->container['resolver']->url(['Notejam\Controllers\NoteController', 'create'])?>" class="button">New note</a>
+    </div>
