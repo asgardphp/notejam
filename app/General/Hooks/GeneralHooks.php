@@ -24,7 +24,7 @@ class GeneralHooks extends \Asgard\Hook\HookContainer {
 	 * @Priority(1000)
 	 */
 	public static function gzip(\Asgard\Hook\Chain $chain, \Asgard\Http\Response $response, \Asgard\Http\Request $request) {
-		// if(!strstr($request->server['HTTP_ACCEPT_ENCODING'], 'gzip') || !$response->getContent())
+		if(!strstr($request->server['HTTP_ACCEPT_ENCODING'], 'gzip') || !$response->getContent())
 			return;
 
 		$output = gzencode($response->getContent());
