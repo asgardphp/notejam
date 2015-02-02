@@ -6,13 +6,15 @@ require_once __DIR__.'/../autoload.php';
 
 $kernel = new \Kernel(dirname(__DIR__));
 $kernel->load();
-$app = $kernel->getContainer();
+$container = $kernel->getContainer();
 
-$app['schema']->dropAll();
-$mm = new \Asgard\Migration\MigrationsManager($app['kernel']['root'].'/migrations/', $app);
+$container['schema']->dropAll();
+$mm = new \Asgard\Migration\MigrationManager($container['kernel']['root'].'/migrations/', $container);
+$mm->setDb($container['db']);
+$mm->setSchema($container['schema']);
 $mm->migrateAll(false);
 
 if(!defined('_TESTING_')) {
-	define('_TESTING_', $app['kernel']['root'].'/tests/tested.txt');
+	define('_TESTING_', $container['kernel']['root'].'/tests/tested.txt');
 	\Asgard\File\FileSystem::delete(_TESTING_);
 }

@@ -6,6 +6,9 @@ if($package->getType() !== 'asgard-bundle')
 
 $root = dirname(__DIR__);
 
+if(!file_exists($root.'/../vendor/autoload.php'))
+	return;
+
 #Add Bundle to Kernel.php
 require_once $root.'/autoload.php';
 

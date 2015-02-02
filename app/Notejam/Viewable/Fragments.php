@@ -23,27 +23,29 @@ class Fragments {
 
 	public function notes($request, $orm) {
 		$url = $request->url;
-		$dir = $request->get->get('dir', 'asc');
+		$sort = $request->get->get('sort', 'date');
+		$dir = $request->get->get('dir', 'desc');
 
-		if($request->get['sort'] == 'note') {
+		if($sort == 'note') {
 			if($dir === 'desc')
 				$orm->orderBy('name DESC');
 			else
 				$orm->orderBy('name ASC');
 		}
-		elseif($request->get['sort'] == 'note') {
+		elseif($sort == 'date') {
 			if($dir === 'desc')
 				$orm->orderBy('updated_at DESC');
 			else
 				$orm->orderBy('updated_at ASC');
 		}
+		$sortDir = $sort.'_'.$dir;
 		$notes = $orm->get();
 		?>
 		<table class="notes">
 			<tr>
-				<th class="note">Note <a href="<?=$url->full(['sort'=>'note', 'dir'=>'asc'])?>" class="sort_arrow" >&uarr;</a><a href="<?=$url->full(['sort'=>'note', 'dir'=>'desc'])?>" class="sort_arrow" >&darr;</a></th>
+				<th class="note">Note <a href="<?=$url->full(['sort'=>'note', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir=='note_asc' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'note', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir=='note_desc' ? ' style="color:red"':'')?>>&darr;</a></th>
 				<th>Pad</th>
-				<th class="date">Last modified <a href="<?=$url->full(['sort'=>'date', 'dir'=>'asc'])?>" class="sort_arrow" >&uarr;</a><a href="<?=$url->full(['sort'=>'date', 'dir'=>'desc'])?>" class="sort_arrow" >&darr;</a></th>
+				<th class="date">Last modified <a href="<?=$url->full(['sort'=>'date', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir=='date_asc' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'date', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir=='date_desc' ? ' style="color:red"':'')?>>&darr;</a></th>
 			</tr>
 			<?php foreach($notes as $note): ?>
 			<tr>

@@ -17,7 +17,7 @@ class DefaultController extends \Asgard\Http\Controller {
 
 	public function maintenanceAction() {
 	}
-	
+
 	public static function layout(\Asgard\Http\Controller $controller, $content) {
 		$user = $controller->request->session->get('user');
 		return \Asgard\Templating\PHPTemplate::renderFile(dirname(__DIR__).'/html/default/layout.php', [

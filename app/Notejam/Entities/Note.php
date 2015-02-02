@@ -16,6 +16,10 @@ class Note extends \Asgard\Entity\Entity {
 				'type' => 'entity',
 				'entity' => 'Notejam\\Entities\\Pad',
 			],
+			'user' => [
+				'type' => 'entity',
+				'entity' => 'Notejam\\Entities\\User',
+			],
 		];
 
 

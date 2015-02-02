@@ -1,4 +1,4 @@
-debug_url: code:%file%:%line%
+debug_url: sblm://open/?f=%file%:%line%
 key: t50uUmGkWq
 locale: en
 locales: [fr, en]

@@ -14,7 +14,7 @@ class Kernel extends \Asgard\Core\Kernel {
 				new \Asgard\Jsonentities\Bundle,
 				#Composer Bundles - do not remove
 			],
-			glob(__DIR__.'/*', GLOB_ONLYDIR)
+			array_map(function($dir) {return realpath($dir);}, glob(__DIR__.'/*', GLOB_ONLYDIR))
 		);
 	}
 }

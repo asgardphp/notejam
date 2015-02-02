@@ -10,7 +10,7 @@ class NoteController extends \Asgard\Http\Controller {
 			return $this->response->redirect($this->container['resolver']->url(['Notejam\Controllers\UserController', 'signin']));
 
 		if(isset($request['note_id'])) {
-			$this->note = $this->user->pads()->notes()->where('id', $request['note_id'])->first();
+			$this->note = $this->user->notes()->where('id', $request['note_id'])->first();
 			if(!$this->note)
 				$this->notFound();
 		}
@@ -23,8 +23,8 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle('New Note');
 		$this->view = 'form';
 
-		$note = new \Notejam\Entities\Note;
-		$this->form = $this->getForm();
+		$note = new \Notejam\Entities\Note(['user'=>$this->user]);
+		$this->form = $this->getForm($note);
 		if($this->form->isValid()) {
 			$this->form->save();
 			return $this->response->redirect($note->url());
@@ -45,7 +45,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle($this->note);
 		$this->view = 'form';
 
-		$note = new \Notejam\Entities\Note;
+		$note = \Notejam\Entities\Note::load($request['note_id']);
 		$this->form = $this->getForm($note, $this->user);
 		if($this->form->isValid()) {
 			$this->form->save();
@@ -65,8 +65,9 @@ class NoteController extends \Asgard\Http\Controller {
 		}
 	}
 
-	protected function getForm($note, $user) {
+	protected function getForm($note) {
 		$form = $this->container->make('entityform', [$note]);
+		$user = $this->user;
 		$form->addRelation('pad', function($orm) use($user) {
 			$orm->where('user_id', $user->id);
 		});
