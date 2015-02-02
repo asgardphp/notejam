@@ -5,8 +5,11 @@ class User extends \Asgard\Entity\Entity {
 	public static function definition(\Asgard\Entity\Definition $definition) {
 		$definition->properties = [
 			'email' => [
-				'type' => NULL,
+				'type' => 'email',
 				'required' => true,
+				'ormValidation' => [
+					'unique' => true,
+				]
 			],
 			'password' => [
 				'type' => 'password',

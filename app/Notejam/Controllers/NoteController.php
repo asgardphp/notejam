@@ -23,7 +23,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle('New Note');
 		$this->view = 'form';
 
-		$note = new \Notejam\Entities\Note(['user'=>$this->user]);
+		$note = $pad = $this->user->notes()->make();
 		$this->form = $this->getForm($note);
 		if($this->form->isValid()) {
 			$this->form->save();

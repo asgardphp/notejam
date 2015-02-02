@@ -1,0 +1,9 @@
+database:
+  driver: sqlite
+  database: :memory:
+  # driver: mysql
+  # host: localhost
+  # user: root
+  # password: 
+  # database: notejam_test
+  # prefix: 

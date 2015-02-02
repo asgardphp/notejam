@@ -25,6 +25,8 @@ class UserController extends \Asgard\Http\Controller {
 			$request->session->set('user', $user);
 			return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
 		}
+		else
+			$this->response->setCode(400);
 	}
 
 	/**
@@ -48,8 +50,10 @@ class UserController extends \Asgard\Http\Controller {
 				$request->session->set('user', $user);
 				return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
 			}
-			else
+			else {
 				$this->error = 'Wrong password or email';
+				$this->response->setCode(400);
+			}
 		}
 	}
 
