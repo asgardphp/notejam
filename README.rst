@@ -2,7 +2,7 @@
 Notejam: Asgard
 ****************
 
-Notejam application implemented using `Asgard <http://asgardphp.net>`_ framework.
+Notejam application implemented using `Asgard <http://asgardphp.com>`_ framework.
 
 Asgard version: 0.2
 
