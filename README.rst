@@ -55,7 +55,7 @@ Start built-in asgard web server:
 
 .. code-block:: bash
 
-    $ cd YOUR_PROJECT_DIR/web
+    $ cd YOUR_PROJECT_DIR
     $ php console server
 
 Go to http://localhost:8000/ in your browser.
