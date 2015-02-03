@@ -12,17 +12,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/asgardphp/asgard.git",
-                "reference": "9ac173d28add72d5599b29c662bb7ced03ee2575"
+                "reference": "645c2e2f841ad95180409b11637aa9460cfc27d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asgardphp/asgard/zipball/9ac173d28add72d5599b29c662bb7ced03ee2575",
-                "reference": "9ac173d28add72d5599b29c662bb7ced03ee2575",
+                "url": "https://api.github.com/repos/asgardphp/asgard/zipball/645c2e2f841ad95180409b11637aa9460cfc27d6",
+                "reference": "645c2e2f841ad95180409b11637aa9460cfc27d6",
                 "shasum": ""
             },
             "require": {
                 "doctrine/annotations": "1.*",
                 "doctrine/cache": "1.*",
+                "doctrine/dbal": "2.*",
                 "jeremeamia/superclosure": "1.*",
                 "nesbot/carbon": "1.*",
                 "php": ">=5.4.0",
@@ -82,7 +83,7 @@
                 }
             ],
             "description": "Asgard PHP Framework",
-            "time": "2015-01-27 14:01:54"
+            "time": "2015-02-03 14:01:51"
         },
         {
             "name": "asgard/behaviors",
@@ -90,12 +91,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/asgardphp/behaviors.git",
-                "reference": "c35bef27ec676e5f2488a798be300734f038dc5f"
+                "reference": "447fc35efff246c8f98fd4edc4721d9ee17e87ba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/asgardphp/behaviors/zipball/c35bef27ec676e5f2488a798be300734f038dc5f",
-                "reference": "c35bef27ec676e5f2488a798be300734f038dc5f",
+                "url": "https://api.github.com/repos/asgardphp/behaviors/zipball/447fc35efff246c8f98fd4edc4721d9ee17e87ba",
+                "reference": "447fc35efff246c8f98fd4edc4721d9ee17e87ba",
                 "shasum": ""
             },
             "require": {
@@ -135,7 +136,7 @@
                     "email": "michel@hognerud.net"
                 }
             ],
-            "time": "2015-01-24 15:03:04"
+            "time": "2015-02-02 16:15:33"
         },
         {
             "name": "asgard/composer",

@@ -27,6 +27,7 @@ class PadController extends \Asgard\Http\Controller {
 		$this->form = $this->container->make('entityform', [$pad]);
 		if($this->form->isValid()) {
 			$this->form->save();
+			$this->getFlash()->addSuccess('Pad is successfully created.');
 			return $this->response->redirect($pad->url());
 		}
 	}
@@ -48,6 +49,7 @@ class PadController extends \Asgard\Http\Controller {
 		$this->form = $this->container->make('entityform', [$this->pad]);
 		if($this->form->isValid()) {
 			$this->form->save();
+			$this->getFlash()->addSuccess('Pad is successfully edited.');
 			return $this->response->redirect($this->pad->url());
 		}
 	}
@@ -60,6 +62,7 @@ class PadController extends \Asgard\Http\Controller {
 
 		if($request->method() == 'POST') {
 			$this->pad->destroy();
+			$this->getFlash()->addSuccess('Pad is successfully deleted.');
 			return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
 		}
 	}

@@ -35,8 +35,6 @@ class UserController extends \Asgard\Http\Controller {
 	public function signinAction($request) {
 		$this->container['html']->setTitle('Sign In');
 
-		$this->error = null;
-
 		$this->form = $this->container->make('form');
 		$this->form['email'] = new \Asgard\Form\Fields\TextField;
 		$this->form['password'] = new \Asgard\Form\Fields\TextField;
@@ -51,7 +49,7 @@ class UserController extends \Asgard\Http\Controller {
 				return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
 			}
 			else {
-				$this->error = 'Wrong password or email';
+				$this->getFlash()->addError('Wrong password or email');
 				$this->response->setCode(400);
 			}
 		}

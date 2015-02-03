@@ -78,3 +78,10 @@ $container['hooks']->hook('Asgard.Http.Start', function($chain, $request) {
 $container['flash']->setCallback(function($msg, $type) {
 	return '<div class="alert alert-'.$type.'">'.$msg.'</div>';
 });
+$container['flash']->setGlobalCallback(function($flash, $cat) {
+	if($flash->has()) {
+		echo '<div class="alert-area">';
+		$flash->showAll($cat, false);
+		echo '</div>';
+	}
+});

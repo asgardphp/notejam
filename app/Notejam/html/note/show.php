@@ -1,5 +1,6 @@
     <?=\Notejam\Viewable\Fragments::sFragment('pads', [$this, $user])?>
     <div class="thirteen columns content-area">
+      <?php $this->getFlash()->showAll() ?>
       <p class="hidden-text">Last edited <?php
         if($note->updated_at->isToday())
           echo 'at '.$note->updated_at->format('H:i');

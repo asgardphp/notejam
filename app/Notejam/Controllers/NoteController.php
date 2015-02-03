@@ -27,6 +27,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->form = $this->getForm($note);
 		if($this->form->isValid()) {
 			$this->form->save();
+			$this->getFlash()->addSuccess('Note is successfully created.');
 			return $this->response->redirect($note->url());
 		}
 	}
@@ -49,6 +50,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->form = $this->getForm($note, $this->user);
 		if($this->form->isValid()) {
 			$this->form->save();
+			$this->getFlash()->addSuccess('Note is successfully updated.');
 			return $this->response->redirect($note->url());
 		}
 	}
@@ -61,6 +63,7 @@ class NoteController extends \Asgard\Http\Controller {
 
 		if($request->method() == 'POST') {
 			$this->note->destroy();
+			$this->getFlash()->addSuccess('Note is successfully deleted.');
 			return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
 		}
 	}
