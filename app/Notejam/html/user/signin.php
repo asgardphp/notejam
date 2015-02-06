@@ -5,8 +5,8 @@
         <?=$form['email']->def()?>
         <?=$form['password']->labelTag()?>
         <?=$form['password']->password()?>
-        <?=$form->submit('Sign In')?> or <a href="<?=$this->getContainer()['resolver']->url(['Notejam\Controllers\UserController', 'signup'])?>">Sign up</a>
+        <?=$form->submit('Sign In')?> or <a href="<?=$this->url(['Notejam\Controllers\UserController', 'signup'])?>">Sign up</a>
         <hr />
-        <p><a href="<?=$this->getContainer()['resolver']->url(['Notejam\Controllers\UserController', 'forgotPassword'])?>" class="small-red">Forgot password?</a></p>
+        <p><a href="<?=$this->url(['Notejam\Controllers\UserController', 'forgotPassword'])?>" class="small-red">Forgot password?</a></p>
       <?=$form->close()?>
     </div>

@@ -32,6 +32,6 @@ class Note extends \Asgard\Entity\Entity {
 	}
 
 	public function url() {
-		return \Asgard\Container\Container::singleton()['resolver']->url(array('Notejam\Controllers\NoteController', 'show'), ['note_id'=>$this->id]);
+		return $this->getDefinition()->getContainer()['resolver']->url(array('Notejam\Controllers\NoteController', 'show'), ['note_id'=>$this->id]);
 	}
 }

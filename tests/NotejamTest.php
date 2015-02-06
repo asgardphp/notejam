@@ -4,7 +4,7 @@ class NotejamTest extends \Asgard\Http\Test {
 
 	protected function login() {
 		$browser = $this->createBrowser();
-		$browser->getSession()->set('user', $this->user);
+		$browser->getSession()->set('user', $this->user->id);
 		return $browser;
 	}
 
@@ -105,7 +105,7 @@ class NotejamTest extends \Asgard\Http\Test {
 			'email' => 'test@test.com',
 			'password' => 'test',
 		]);
-		$this->assertInstanceOf('Notejam\Entities\User', $browser->getSession()->get('user'), 'user can successfully sign in');
+		$this->assertEquals(1, $browser->getSession()->get('user'), 'user can successfully sign in');
 	}
 	
 	public function testSigninRequired() {

@@ -9,9 +9,7 @@ $kernel->load();
 $container = $kernel->getContainer();
 
 $container['schema']->dropAll();
-$mm = new \Asgard\Migration\MigrationManager($container['kernel']['root'].'/migrations/', $container);
-$mm->setDb($container['db']);
-$mm->setSchema($container['schema']);
+$mm = new \Asgard\Migration\MigrationManager($container['kernel']['root'].'/migrations/', $container['db'], $container['schema'], $container);
 $mm->migrateAll(false);
 
 if(!defined('_TESTING_')) {

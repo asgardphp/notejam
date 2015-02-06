@@ -10,42 +10,32 @@ class Fragments {
 				<h4 id="logo">My pads</h4>
 				<nav>
 					<ul>
-						<?php foreach($user->pads()->get() as $pad): ?>
+						<?php foreach($user->pads as $pad): ?>
 						<li><a href="<?=$pad->url()?>"><?=$pad?></a></li>
 						<?php endforeach ?>
 					</ul>
 					<hr />
-					<a href="<?=$controller->getContainer()['resolver']->url(['Notejam\Controllers\PadController', 'create'])?>">New pad</a>
+					<a href="<?=$controller->url(['Notejam\Controllers\PadController', 'create'])?>">New pad</a>
 				</nav>
 			</div>
 		<?php endif;
 	}
 
 	public function notes($request, $orm) {
-		$url = $request->url;
-		$sort = $request->get->get('sort', 'date');
-		$dir = $request->get->get('dir', 'desc');
+		if($orm->count() === 0)
+			return '<p class="empty">Create your first note.</p>';
 
-		if($sort == 'note') {
-			if($dir === 'desc')
-				$orm->orderBy('name DESC');
-			else
-				$orm->orderBy('name ASC');
-		}
-		elseif($sort == 'date') {
-			if($dir === 'desc')
-				$orm->orderBy('updated_at DESC');
-			else
-				$orm->orderBy('updated_at ASC');
-		}
-		$sortDir = $sort.'_'.$dir;
-		$notes = $orm->get();
+		$url = $request->url;
+		$sort = $request->get->get('sort') === 'note' ? 'name':'updated_at';
+		$dir = $request->get->get('dir') === 'ASC' ? 'ASC':'DESC';
+		$sortDir = $sort.' '.$dir;
+		$notes = $orm->orderBy($sortDir)->get();
 		?>
 		<table class="notes">
 			<tr>
-				<th class="note">Note <a href="<?=$url->full(['sort'=>'note', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir=='note_asc' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'note', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir=='note_desc' ? ' style="color:red"':'')?>>&darr;</a></th>
+				<th class="note">Note <a href="<?=$url->full(['sort'=>'note', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir==='name ASC' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'note', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir==='name DESC' ? ' style="color:red"':'')?>>&darr;</a></th>
 				<th>Pad</th>
-				<th class="date">Last modified <a href="<?=$url->full(['sort'=>'date', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir=='date_asc' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'date', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir=='date_desc' ? ' style="color:red"':'')?>>&darr;</a></th>
+				<th class="date">Last modified <a href="<?=$url->full(['sort'=>'date', 'dir'=>'asc'])?>" class="sort_arrow"<?=($sortDir==='updated_at ASC' ? ' style="color:red"':'')?>>&uarr;</a><a href="<?=$url->full(['sort'=>'date', 'dir'=>'desc'])?>" class="sort_arrow"<?=($sortDir==='updated_at DESC' ? ' style="color:red"':'')?>>&darr;</a></th>
 			</tr>
 			<?php foreach($notes as $note): ?>
 			<tr>
@@ -53,13 +43,13 @@ class Fragments {
 				<td class="pad"><?=($note->pad ? '<a href="'.$note->pad->url().'">'.$note->pad.'</a>':'No pad')?></td>
 				<td class="hidden-text date"><?php
 				if($note->updated_at->isToday())
-				echo 'Today at '.$note->updated_at->format('H:i');
+					echo 'Today at '.$note->updated_at->format('H:i');
 				elseif($note->updated_at->isYesterday())
-				echo 'Yesterday';
-				elseif(($days = -$note->updated_at->diffInDays(new \DateTime('now'))) <= 7)
-				echo $days.' days ago';
+					echo 'Yesterday';
+				elseif(($days = $note->updated_at->diffInDays(new \Asgard\Common\DateTime('now'))) <= 7)
+					echo $days.' days ago';
 				else
-				echo $note->updated_at->format('d M. Y');
+					echo $note->updated_at->format('d M. Y');
 				?></td>
 			</tr>
 			<?php endforeach ?>

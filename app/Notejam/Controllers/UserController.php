@@ -2,6 +2,8 @@
 namespace Notejam\Controllers;
 
 class UserController extends \Asgard\Http\Controller {
+	public $user;
+
 	/**
 	 * @Route("signup")
 	*/
@@ -22,8 +24,8 @@ class UserController extends \Asgard\Http\Controller {
 
 		if($this->form->isValid()) {
 			$this->form->save();
-			$request->session->set('user', $user);
-			return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
+			$request->session->set('user', $user->id);
+			return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
 		}
 		else
 			$this->response->setCode(400);
@@ -45,8 +47,8 @@ class UserController extends \Asgard\Http\Controller {
 			$hash = sha1($this->container['config']['key'].$password);
 			$user = \Notejam\Entities\User::where(['email' => $email, 'password' => $hash])->first();
 			if($user) {
-				$request->session->set('user', $user);
-				return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
+				$request->session->set('user', $user->id);
+				return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
 			}
 			else {
 				$this->getFlash()->addError('Wrong password or email');
@@ -104,8 +106,8 @@ class UserController extends \Asgard\Http\Controller {
 	 * @Route("settings")
 	*/
 	public function settingsAction($request) {
-		if(!($user = $request->session->get('user')))
-			return $this->response->redirect($this->container['resolver']->url(['Notejam\Controllers\UserController', 'signin']));
+		if(!$user = $this->user)
+			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
 
 		$this->container['html']->setTitle('Account Settings');
 

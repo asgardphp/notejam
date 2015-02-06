@@ -5,9 +5,11 @@ namespace Notejam\Controllers;
  * @Prefix("notes")
  */
 class NoteController extends \Asgard\Http\Controller {
+	public $user;
+	
 	public function before(\Asgard\Http\Request $request) {
-		if(!$this->user = $request->session->get('user'))
-			return $this->response->redirect($this->container['resolver']->url(['Notejam\Controllers\UserController', 'signin']));
+		if(!$this->user)
+			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
 
 		if(isset($request['note_id'])) {
 			$this->note = $this->user->notes()->where('id', $request['note_id'])->first();
@@ -23,7 +25,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle('New Note');
 		$this->view = 'form';
 
-		$note = $pad = $this->user->notes()->make();
+		$note = $this->user->notes()->make();
 		$this->form = $this->getForm($note);
 		if($this->form->isValid()) {
 			$this->form->save();
@@ -64,7 +66,7 @@ class NoteController extends \Asgard\Http\Controller {
 		if($request->method() == 'POST') {
 			$this->note->destroy();
 			$this->getFlash()->addSuccess('Note is successfully deleted.');
-			return $this->response->redirect($this->container['resolver']->url(['General\Controllers\DefaultController', 'index']));
+			return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
 		}
 	}
 

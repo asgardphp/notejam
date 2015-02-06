@@ -8,7 +8,7 @@
 	<!-- Basic Page Needs
   ================================================== -->
 	<meta charset="utf-8">
-	<title><?=($title=$controller->getContainer()['html']->getTitle()) ? $title:'Notejam'?></title>
+	<title>Notejam<?=($title=$controller->getContainer()['html']->getTitle()) ? ': '.$title:''?></title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 
