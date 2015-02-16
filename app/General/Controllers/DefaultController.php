@@ -8,8 +8,6 @@ class DefaultController extends \Asgard\Http\Controller {
 	 * @Route("")
 	 */
 	public function indexAction(\Asgard\Http\Request $request) {
-		$this->container['html']->setTitle('');
-
 		if(!$this->user)
 			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
 	}
