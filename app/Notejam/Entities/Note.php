@@ -9,7 +9,7 @@ class Note extends \Asgard\Entity\Entity {
 				'required' => true,
 			],
 			'text' => [
-				'type' => 'longtext',
+				'type' => 'text',
 				'required' => true,
 			],
 			'pad' => [
@@ -24,8 +24,9 @@ class Note extends \Asgard\Entity\Entity {
 
 
 		$definition->behaviors = [
-				new \Asgard\Behaviors\TimestampsBehavior,
-			];	}
+			new \Asgard\Behaviors\TimestampsBehavior,
+		];
+	}
 
 	public function __toString() {
 		return (string)$this->name;

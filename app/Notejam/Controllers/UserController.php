@@ -84,7 +84,6 @@ class UserController extends \Asgard\Http\Controller {
 			]
 		]);
 
-		$this->success = false;
 		if($this->form->isValid()) {
 			$email = $this->form['email']->value();
 			$user = \Notejam\Entities\User::loadBy('email', $email);
@@ -98,7 +97,7 @@ class UserController extends \Asgard\Http\Controller {
 				$msg->to($email);
 				$msg->text('Your new password: '.$password);
 			});
-			$this->success = true;
+			$this->getFlash()->addSuccess('Your new password was sent to your email address.');
 		}
 	}
 
@@ -132,12 +131,11 @@ class UserController extends \Asgard\Http\Controller {
 		]);
 		$this->form['confirm'] = new \Asgard\Form\Fields\TextField;
 
-		$this->success = false;
 		if($this->form->isValid()) {
 			$user->save([
 				'password' => $this->form['new']->value()
 			]);
-			$this->success = true;
+			$this->getFlash()->addSuccess('Your settings have been saved.');
 		}
 	}
 }

@@ -1,9 +1,5 @@
     <div class="sixteen columns content-area">
-      <?php if($success): ?>
-      <div class="alert-area">
-        <div class="alert alert-success">Your settings have been saved.</div>
-      </div>
-      <?php endif ?>
+      <?php $this->getFlash()->showAll() ?>
       <?=$form->open(['attrs'=>['class'=>'offset-by-six sign-in']])?>
         <?=$form['current']->labelTag('Current password')?>
         <?=$form['current']->password()?>
