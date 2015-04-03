@@ -16,6 +16,7 @@ class DefaultController extends \Asgard\Http\Controller {
 	}
 
 	public function maintenanceAction() {
+		$this->response->setCode(503);
 	}
 
 	public static function layout(\Asgard\Http\Controller $controller, $content) {

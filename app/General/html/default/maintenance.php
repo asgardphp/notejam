@@ -1,1 +1,1 @@
-<?=$this->container['translator']->trans('This website is currently in maitenance.') ?>
+<?=__('This website is currently in maitenance.')?>

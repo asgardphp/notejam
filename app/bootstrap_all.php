@@ -9,20 +9,22 @@ if(file_exists(__DIR__.'/helpers.php'))
 #Working dir
 chdir(__DIR__.'/..');
 
+#Logger
+$container->register('logger', function($container) {
+	return new Logger($container['config']['log']);
+});
+
 #Error handler
 $container['errorHandler'] = \Asgard\Debug\ErrorHandler::register()
 	->setDebug($container['config']['debug'])
 	->ignoreDir(__DIR__.'/../vendor/nikic/php-parser/')
 	->ignoreDir(__DIR__.'/../vendor/jeremeamia/SuperClosure/')
-	->setLogPHPErrors($container['config']['log_php_errors']);
+	->setLogPHPErrors($container['config']['log_php_errors'])
+	->setDebug($container['config']['debug']);
+$container['errorHandler']->setDebug($container['config']['debug']);
 if($this->container['config']['log'] && $container->has('logger'))
 	$container['errorHandler']->setLogger($container['logger']);
 \Asgard\Debug\Debug::setURL($container['config']['debug_url']);
-
-#Logger
-$container->register('logger', function() {
-	return new Logger;
-});
 
 #Translator
 $container['translator'] = new \Symfony\Component\Translation\Translator($container['config']['locale'], new \Symfony\Component\Translation\MessageSelector());
@@ -70,6 +72,9 @@ $container['hooks']->hook('Asgard.Http.Start', function($chain, $request) {
 	if($newUrl->full() !== $oldUrl->full())
 		return (new \Asgard\Http\Response())->redirect($newUrl->full());
 });
+
+\Asgard\File\FileSystem::mkdir('storage/sessions', '');
+session_save_path(realpath('storage/sessions'));
 
 #set the EntitiesManager static instance for activerecord-like entities (e.g. new Article or Article::find())
 \Asgard\Entity\EntityManager::setInstance($container['entityManager']);

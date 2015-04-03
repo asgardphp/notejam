@@ -1,4 +1,4 @@
-/config/*.locale.*
+/config/*.local.*
 /storage
 /vendor
 composer.phar

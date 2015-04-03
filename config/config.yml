@@ -1,8 +1,7 @@
 debug_url: sblm://open/?f=%file%:%line%
 key: t50uUmGkWq
 locale: en
-locales: [fr, en]
-cache_driver:
+locales: [en]
 cache: false
 debug: true
 email:
