@@ -88,6 +88,6 @@ $container['flash']->setGlobalCallback(function($flash, $cat) {
 
 #user filter
 $container['httpKernel']->filterBeforeAll(function($controller, $request) {
-	if($request->session->get('user'))
-		$controller->user = \Notejam\Entities\User::load($request->session->get('user'));
+	if($controller->getContainer()['session']->has('user'))
+		$controller->user = \Notejam\Entities\User::load($controller->getContainer()['session']->get('user'));
 });

@@ -24,7 +24,7 @@ class UserController extends \Asgard\Http\Controller {
 
 		if($this->form->isValid()) {
 			$this->form->save();
-			$request->session->set('user', $user->id);
+			$this->container['session']->set('user', $user->id);
 			return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
 		}
 		else
@@ -47,7 +47,7 @@ class UserController extends \Asgard\Http\Controller {
 			$hash = sha1($this->container['config']['key'].$password);
 			$user = \Notejam\Entities\User::where(['email' => $email, 'password' => $hash])->first();
 			if($user) {
-				$request->session->set('user', $user->id);
+				$this->container['session']->set('user', $user->id);
 				return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
 			}
 			else {
@@ -61,7 +61,7 @@ class UserController extends \Asgard\Http\Controller {
 	 * @Route("signout")
 	*/
 	public function signoutAction($request) {
-		$request->session->delete('user');
+		$this->container['session']->delete('user');
 		return $this->response->redirect($this->url('signin'));
 	}
 
