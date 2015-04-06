@@ -10,7 +10,7 @@ class Fragments {
 				<h4 id="logo">My pads</h4>
 				<nav>
 					<ul>
-						<?php foreach($user->pads as $pad): ?>
+						<?php foreach($user->pads() as $pad): ?>
 						<li><a href="<?=$pad->url()?>"><?=$pad?></a></li>
 						<?php endforeach ?>
 					</ul>
@@ -29,7 +29,7 @@ class Fragments {
 		$sort = $request->get->get('sort') === 'note' ? 'name':'updated_at';
 		$dir = $request->get->get('dir') === 'ASC' ? 'ASC':'DESC';
 		$sortDir = $sort.' '.$dir;
-		$notes = $orm->orderBy($sortDir)->get();
+		$notes = $orm->orderBy($sortDir);
 		?>
 		<table class="notes">
 			<tr>
