@@ -91,8 +91,14 @@ $container['flash']->setGlobalCallback(function($flash, $cat) {
 	}
 });
 
-#user filter
 $container['httpKernel']->filterBeforeAll(function($controller, $request) {
+	#fragments
+	$controller->fragments = new \Notejam\Viewable\Fragments;
+	$controller->fragments->addTemplatePathSolver(function($viewable, $template) {
+		return 'app/Notejam/html/fragments/'.$template.'.php';
+	});
+
+	#user filter
 	if($controller->getContainer()['session']->has('user'))
 		$controller->user = \Notejam\Entities\User::load($controller->getContainer()['session']->get('user'));
 });

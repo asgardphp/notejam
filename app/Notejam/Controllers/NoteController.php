@@ -6,6 +6,7 @@ namespace Notejam\Controllers;
  */
 class NoteController extends \Asgard\Http\Controller {
 	public $user;
+	public $fragments;
 	
 	public function before(\Asgard\Http\Request $request) {
 		if(!$this->user)

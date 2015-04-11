@@ -3,6 +3,7 @@ namespace General\Controllers;
 
 class DefaultController extends \Asgard\Http\Controller {
 	public $user;
+	public $fragments;
 	
 	/**
 	 * @Route("")

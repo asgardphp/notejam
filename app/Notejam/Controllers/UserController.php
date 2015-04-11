@@ -3,6 +3,7 @@ namespace Notejam\Controllers;
 
 class UserController extends \Asgard\Http\Controller {
 	public $user;
+	public $fragments;
 
 	/**
 	 * @Route("signup")
