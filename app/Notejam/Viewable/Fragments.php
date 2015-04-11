@@ -11,10 +11,10 @@ class Fragments {
 	}
 
 	public function notes($request, $orm) {
-		$this->url = $request->url;
-		$sort = $request->get->get('sort') === 'note' ? 'name':'updated_at';
-		$dir = $request->get->get('dir') === 'ASC' ? 'ASC':'DESC';
+		$this->url     = $request->url;
+		$sort          = $request->get->get('sort') === 'note' ? 'name':'updated_at';
+		$dir           = $request->get->get('dir') === 'ASC' ? 'ASC':'DESC';
 		$this->sortDir = $sort.' '.$dir;
-		$this->notes = $orm->orderBy($this->sortDir);
+		$this->notes   = $orm->orderBy($this->sortDir);
 	}
 }
