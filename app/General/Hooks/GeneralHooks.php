@@ -7,7 +7,7 @@ class GeneralHooks extends \Asgard\Hook\HookContainer {
 	 */
 	public static function maintenance(\Asgard\Hook\Chain $chain, \Asgard\Http\Request $request) {
 		if($chain->getContainer()['kernel']['env'] == 'prod' && file_exists($chain->getContainer()['kernel']['root'].'/storage/maintenance')) {
-			$controller = new \General\Controllers\DefaultController($chain->getContainer());
+			$controller = new \General\Controllers\DefaultController;
 			$chain->getContainer()['httpKernel']->prepareController($controller, 'maintenance', $request);
 			return $controller->run('maintenance', $request);
 		}

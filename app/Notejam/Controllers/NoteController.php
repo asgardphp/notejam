@@ -50,7 +50,7 @@ class NoteController extends \Asgard\Http\Controller {
 		$this->view = 'form';
 
 		$note = \Notejam\Entities\Note::load($request['note_id']);
-		$this->form = $this->getForm($note, $this->user);
+		$this->form = $this->getForm($note);
 		if($this->form->isValid()) {
 			$this->form->save();
 			$this->getFlash()->addSuccess('Note is successfully updated.');
