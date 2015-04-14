@@ -39,7 +39,7 @@ else
 
 $kernelCode = preg_replace('/(#Composer Bundles.*?)/', $line."\n\t\t\t\t".'\1', $kernelCode, -1, $count);
 
-if($count && file_put_contents($kernelPath, $kernelCode))
+if($count>0 && file_put_contents($kernelPath, $kernelCode))
 	echo 'Bundle added to app/Kernel.php'."\n";
 else
 	echo 'Bundle could not be added to app/Kernel.php'."\n";

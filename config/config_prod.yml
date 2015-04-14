@@ -1,2 +1,4 @@
 debug: false
 log: true
+email:
+  driver: Asgard\Email\SwiftEmail

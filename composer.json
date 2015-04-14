@@ -22,9 +22,8 @@
         "preferred-install": "dist"
     },
     "scripts": {
-        "post-create-project-cmd": [
-            "php console config:init"
-        ]
+        "post-create-project-cmd": "php console config:init",
+        "post-autoload-dump": "php console compile"
     },
     "minimum-stability": "dev",
     "extra": {
