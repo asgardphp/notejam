@@ -1,6 +1,4 @@
 <?php
-var_dump($package->getName());die();
-
 parent::install($repo, $package);
 
 if($package->getType() !== 'asgard-bundle')
