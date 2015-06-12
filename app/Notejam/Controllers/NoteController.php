@@ -13,7 +13,7 @@ class NoteController extends \Asgard\Http\Controller {
 			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
 
 		if(isset($request['note_id'])) {
-			$this->note = $this->user->notes()->where('id', $request['note_id'])->first();
+			$this->note = $this->user->notes()->load($request['note_id']);
 			if(!$this->note)
 				$this->notFound();
 		}

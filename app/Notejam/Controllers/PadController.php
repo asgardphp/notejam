@@ -13,7 +13,7 @@ class PadController extends \Asgard\Http\Controller {
 			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
 
 		if(isset($request['pad_id'])) {
-			$this->pad = $this->user->pads()->where('id', $request['pad_id'])->first();
+			$this->pad = $this->user->pads()->load($request['pad_id']);
 			if(!$this->pad)
 				$this->notFound();
 		}
