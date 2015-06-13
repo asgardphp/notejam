@@ -10,10 +10,11 @@
         }
     ],
     "require": {
-        "asgard/asgard": "@dev",
-        "asgard/behaviors": "@dev",
-        "asgard/jsonentities": "@dev",
-        "asgard/composer": "@dev"
+        "asgard/asgard": "0.*",
+        "asgard/behaviors": "0.*",
+        "asgard/jsonentities": "0.*",
+        "asgard/composer": "0.*",
+        "composer/composer": "1.0.0-alpha10@dev"
     },
     "require-dev": {
         "phpunit/phpunit": "4.1.*"
@@ -25,7 +26,7 @@
         "post-create-project-cmd": "php console config:init",
         "post-autoload-dump": "php console compile"
     },
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "extra": {
         "branch-alias": {
             "dev-master": "0.2-dev"
