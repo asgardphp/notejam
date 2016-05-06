@@ -5,12 +5,9 @@ $controller->fragments->addTemplatePathSolver(function($viewable, $template) {
 	return 'app/Notejam/html/fragments/'.$template.'.php';
 });
 
-#user auth
-$auth = $container['auth'];
-$user = $auth->user();
-
 #controller requiring user authentication
 if($controller !== null && in_array('AuthTrait', class_uses($controller))) {
+	$user = $container['auth']->user();
 	if(!$user) {
 		$container['session']->set('referer', $request->url->full());
 		$response = new \Asgard\Http\Response;
