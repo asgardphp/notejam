@@ -1,5 +1,5 @@
 <?php
-namespace General\Controllers;
+namespace General\Controller;
 
 class DefaultController extends \Asgard\Http\Controller {
 	public $user;
@@ -10,7 +10,7 @@ class DefaultController extends \Asgard\Http\Controller {
 	 */
 	public function indexAction(\Asgard\Http\Request $request) {
 		if(!$this->user)
-			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
+			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
 	}
 
 	public function _404Action() {

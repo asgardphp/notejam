@@ -2,14 +2,14 @@
     <div class="sixteen columns">
       <div class="sign-in-out-block">
         <?php if($user): ?>
-        <?=$user?>:&nbsp; <a href="<?=$controller->url(['Notejam\Controllers\UserController', 'settings'])?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controllers\UserController', 'signout'])?>">Sign out</a>
+        <?=$user?>:&nbsp; <a href="<?=$controller->url(['Notejam\Controller\User', 'settings'])?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controller\User', 'signout'])?>">Sign out</a>
         <?php else: ?>
-        <a href="<?=$controller->url(['Notejam\Controllers\UserController', 'signup'])?>">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controllers\UserController', 'signin'])?>">Sign in</a>
+        <a href="<?=$controller->url(['Notejam\Controller\User', 'signup'])?>">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controller\User', 'signin'])?>">Sign in</a>
         <?php endif ?>
       </div>
     </div>
     <div class="sixteen columns">
-      <h1 class="bold-header"><a href="<?=$controller->url(['General\Controllers\DefaultController', 'index'])?>" class="header">note<span class="jam">jam:</span></a> <span><?=$controller->getContainer()['html']->getTitle()?></span></h1>
+      <h1 class="bold-header"><a href="<?=$controller->url(['General\Controller\DefaultController', 'index'])?>" class="header">note<span class="jam">jam:</span></a> <span><?=$controller->getContainer()['html']->getTitle()?></span></h1>
     </div>
     <?=$content ?>
     <hr class="footer" />

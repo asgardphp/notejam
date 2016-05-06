@@ -1,5 +1,5 @@
 <?php
-namespace Notejam\Entities;
+namespace Notejam\Entity;
 
 class Pad extends \Asgard\Entity\Entity {
 	public static function definition(\Asgard\Entity\Definition $definition) {
@@ -10,11 +10,11 @@ class Pad extends \Asgard\Entity\Entity {
 			],
 			'user' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\User',
+				'entity' => 'Notejam\\Entity\\User',
 			],
 			'notes' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\Note',
+				'entity' => 'Notejam\\Entity\\Note',
 				'many' => true,
 			],
 		];
@@ -25,6 +25,6 @@ class Pad extends \Asgard\Entity\Entity {
 	}
 
 	public function url() {
-		return $this->getDefinition()->getContainer()['resolver']->url(array('Notejam\Controllers\PadController', 'show'), ['pad_id'=>$this->id]);
+		return $this->getDefinition()->getContainer()['resolver']->url(array('Notejam\Controller\Pad', 'show'), ['pad_id'=>$this->id]);
 	}
 }

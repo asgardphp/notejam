@@ -1,16 +1,16 @@
 <?php
-namespace Notejam\Controllers;
+namespace Notejam\Controller;
 
 /**
  * @Prefix("pads")
  */
-class PadController extends \Asgard\Http\Controller {
+class Pad extends \Asgard\Http\Controller {
 	public $user;
 	public $fragments;
 	
 	public function before(\Asgard\Http\Request $request) {
 		if(!$this->user)
-			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
+			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
 
 		if(isset($request['pad_id'])) {
 			$this->pad = $this->user->pads()->load($request['pad_id']);
@@ -66,7 +66,7 @@ class PadController extends \Asgard\Http\Controller {
 		if($request->method() == 'POST') {
 			$this->pad->destroy();
 			$this->getFlash()->addSuccess('Pad is successfully deleted.');
-			return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
+			return $this->response->redirect($this->url(['General\Controller\DefaultController', 'index']));
 		}
 	}
 }

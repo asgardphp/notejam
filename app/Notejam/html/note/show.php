@@ -14,6 +14,6 @@
 		<div class="note">
 			<?=$note->text?>
 		</div>
-		<a href="<?=$this->url(['Notejam\Controllers\NoteController', 'edit'], ['note_id'=>$note->id])?>" class="button">Edit</a>
-		<a href="<?=$this->url(['Notejam\Controllers\NoteController', 'delete'], ['note_id'=>$note->id])?>" class="delete-note">Delete it</a>
+		<a href="<?=$this->url(['Notejam\Controller\Note', 'edit'], ['note_id'=>$note->id])?>" class="button">Edit</a>
+		<a href="<?=$this->url(['Notejam\Controller\Note', 'delete'], ['note_id'=>$note->id])?>" class="delete-note">Delete it</a>
 	</div>

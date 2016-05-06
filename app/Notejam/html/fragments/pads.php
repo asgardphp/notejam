@@ -7,6 +7,6 @@
 						<?php endforeach ?>
 					</ul>
 					<hr />
-					<a href="<?=$controller->url(['Notejam\Controllers\PadController', 'create'])?>">New pad</a>
+					<a href="<?=$controller->url(['Notejam\Controller\Pad', 'create'])?>">New pad</a>
 				</nav>
 			</div>

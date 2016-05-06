@@ -1,5 +1,5 @@
 <?php
-namespace Notejam\Entities;
+namespace Notejam\Entity;
 
 class User extends \Asgard\Entity\Entity {
 	public static function definition(\Asgard\Entity\Definition $definition) {
@@ -7,7 +7,7 @@ class User extends \Asgard\Entity\Entity {
 			'email' => [
 				'type' => 'email',
 				'required' => true,
-				'ormValidation' => [
+				'validation' => [
 					'unique' => true,
 				]
 			],
@@ -16,12 +16,12 @@ class User extends \Asgard\Entity\Entity {
 			],
 			'pads' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\Pad',
+				'entity' => 'Notejam\\Entity\\Pad',
 				'many' => true,
 			],
 			'notes' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\Note',
+				'entity' => 'Notejam\\Entity\\Note',
 				'many' => true,
 			],
 		];

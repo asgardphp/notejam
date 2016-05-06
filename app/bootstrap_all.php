@@ -54,8 +54,8 @@ $container['hooks']->hook('Asgard.Entity.Definition', function($chain, $definiti
 $container['httpKernel']->start($container['kernel']->get('root').'/app/start.php');
 
 #Layout
-$container['httpKernel']->filterAll('Asgard\Http\Filters\PageLayout', [
-	['\General\Controllers\DefaultController', 'layout'],
+$container['httpKernel']->filterAll('Asgard\Http\Filter\PageLayout', [
+	['\General\Controller\DefaultController', 'layout'],
 	$container['kernel']->get('root').'/app/General/html/html.php'
 ]);
 
@@ -76,7 +76,7 @@ $container['hooks']->hook('Asgard.Http.Start', function($chain, $request) {
 \Asgard\File\FileSystem::mkdir('storage/sessions');
 session_save_path(realpath('storage/sessions'));
 
-#set the EntitiesManager static instance for activerecord-like entities (e.g. new Article or Article::find())
+#set the EntityManager static instance for activerecord-like Entity (e.g. new Article or Article::find())
 \Asgard\Entity\EntityManager::setInstance($container['entityManager']);
 
 #flash
@@ -100,5 +100,5 @@ $container['httpKernel']->filterBeforeAll(function($controller, $request) {
 
 	#user filter
 	if($controller->getContainer()['session']->has('user'))
-		$controller->user = \Notejam\Entities\User::load($controller->getContainer()['session']->get('user'));
+		$controller->user = \Notejam\Entity\User::load($controller->getContainer()['session']->get('user'));
 });

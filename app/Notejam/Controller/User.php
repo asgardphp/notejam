@@ -1,7 +1,7 @@
 <?php
-namespace Notejam\Controllers;
+namespace Notejam\Controller;
 
-class UserController extends \Asgard\Http\Controller {
+class User extends \Asgard\Http\Controller {
 	public $user;
 	public $fragments;
 
@@ -11,7 +11,7 @@ class UserController extends \Asgard\Http\Controller {
 	public function signupAction($request) {
 		$this->container['html']->setTitle('Sign Up');
 
-		$user = new \Notejam\Entities\User;
+		$user = new \Notejam\Entity\User;
 		$this->form = $this->container->make('entityform', [$user]);
 		$this->form['password']->setOptions([
 			'validation' => [
@@ -21,12 +21,12 @@ class UserController extends \Asgard\Http\Controller {
 				'same' => 'Password does not match the confirmation'
 			]
 		]);
-		$this->form['confirm'] = new \Asgard\Form\Fields\TextField;
+		$this->form['confirm'] = new \Asgard\Form\Field\TextField;
 
 		if($this->form->isValid()) {
 			$this->form->save();
 			$this->container['session']->set('user', $user->id);
-			return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
+			return $this->response->redirect($this->url(['General\Controller\DefaultController', 'index']));
 		}
 		else
 			$this->response->setCode(400);
@@ -39,17 +39,17 @@ class UserController extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle('Sign In');
 
 		$this->form = $this->container->make('form');
-		$this->form['email'] = new \Asgard\Form\Fields\TextField;
-		$this->form['password'] = new \Asgard\Form\Fields\TextField;
+		$this->form['email'] = new \Asgard\Form\Field\TextField;
+		$this->form['password'] = new \Asgard\Form\Field\TextField;
 
 		if($this->form->sent()) {
 			$email = $this->form['email']->value();
 			$password = $this->form['password']->value();
 			$hash = sha1($this->container['config']['key'].$password);
-			$user = \Notejam\Entities\User::where(['email' => $email, 'password' => $hash])->first();
+			$user = \Notejam\Entity\User::where(['email' => $email, 'password' => $hash])->first();
 			if($user) {
 				$this->container['session']->set('user', $user->id);
-				return $this->response->redirect($this->url(['General\Controllers\DefaultController', 'index']));
+				return $this->response->redirect($this->url(['General\Controller\DefaultController', 'index']));
 			}
 			else {
 				$this->getFlash()->addError('Wrong password or email');
@@ -72,9 +72,9 @@ class UserController extends \Asgard\Http\Controller {
 	public function forgotPasswordAction($request) {
 		$this->container['html']->setTitle('Forgot password?');
 
-		$orm = \Notejam\Entities\User::orm();
+		$orm = \Notejam\Entity\User::orm();
 		$this->form = $this->container->make('form');
-		$this->form['email'] = new \Asgard\Form\Fields\TextField([
+		$this->form['email'] = new \Asgard\Form\Field\TextField([
 			'validation' => [
 				'callback' => function($input) use($orm) {
 					return $orm->where('email', $input)->count() > 0;
@@ -87,7 +87,7 @@ class UserController extends \Asgard\Http\Controller {
 
 		if($this->form->isValid()) {
 			$email = $this->form['email']->value();
-			$user = \Notejam\Entities\User::loadBy('email', $email);
+			$user = \Notejam\Entity\User::loadBy('email', $email);
 			$password = \Asgard\Common\Tools::randstr(10);
 			$user->save([
 				'password' => $password
@@ -107,12 +107,12 @@ class UserController extends \Asgard\Http\Controller {
 	*/
 	public function settingsAction($request) {
 		if(!$user = $this->user)
-			return $this->response->redirect($this->url(['Notejam\Controllers\UserController', 'signin']));
+			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
 
 		$this->container['html']->setTitle('Account Settings');
 
 		$this->form = $this->container->make('form');
-		$this->form['current'] = new \Asgard\Form\Fields\TextField([
+		$this->form['current'] = new \Asgard\Form\Field\TextField([
 			'validation' => [
 				'callback' => function($input) use($user) {
 					return $user->password === sha1($this->container['config']['key'].$input);
@@ -122,7 +122,7 @@ class UserController extends \Asgard\Http\Controller {
 				'callback' => 'Password is invalid'
 			]
 		]);
-		$this->form['new'] = new \Asgard\Form\Fields\TextField([
+		$this->form['new'] = new \Asgard\Form\Field\TextField([
 			'validation' => [
 				'same' => 'confirm'
 			],
@@ -130,7 +130,7 @@ class UserController extends \Asgard\Http\Controller {
 				'same' => 'Password does not match the confirmation'
 			]
 		]);
-		$this->form['confirm'] = new \Asgard\Form\Fields\TextField;
+		$this->form['confirm'] = new \Asgard\Form\Field\TextField;
 
 		if($this->form->isValid()) {
 			$user->save([

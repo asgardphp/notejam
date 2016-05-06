@@ -1,5 +1,5 @@
 <?php
-namespace Notejam\Entities;
+namespace Notejam\Entity;
 
 class Note extends \Asgard\Entity\Entity {
 	public static function definition(\Asgard\Entity\Definition $definition) {
@@ -14,11 +14,11 @@ class Note extends \Asgard\Entity\Entity {
 			],
 			'pad' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\Pad',
+				'entity' => 'Notejam\\Entity\\Pad',
 			],
 			'user' => [
 				'type' => 'entity',
-				'entity' => 'Notejam\\Entities\\User',
+				'entity' => 'Notejam\\Entity\\User',
 			],
 		];
 
@@ -33,6 +33,6 @@ class Note extends \Asgard\Entity\Entity {
 	}
 
 	public function url() {
-		return $this->getDefinition()->getContainer()['resolver']->url(array('Notejam\Controllers\NoteController', 'show'), ['note_id'=>$this->id]);
+		return $this->getDefinition()->getContainer()['resolver']->url(array('Notejam\Controller\Note', 'show'), ['note_id'=>$this->id]);
 	}
 }
