@@ -5,13 +5,10 @@ namespace Notejam\Controller;
  * @Prefix("pads")
  */
 class Pad extends \Asgard\Http\Controller {
-	public $user;
+	use \AuthTrait;
 	public $fragments;
 	
 	public function before(\Asgard\Http\Request $request) {
-		if(!$this->user)
-			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
-
 		if(isset($request['pad_id'])) {
 			$this->pad = $this->user->pads()->load($request['pad_id']);
 			if(!$this->pad)

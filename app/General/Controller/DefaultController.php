@@ -2,15 +2,13 @@
 namespace General\Controller;
 
 class DefaultController extends \Asgard\Http\Controller {
-	public $user;
+	use \AuthTrait;
 	public $fragments;
 	
 	/**
 	 * @Route("")
 	 */
 	public function indexAction(\Asgard\Http\Request $request) {
-		if(!$this->user)
-			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
 	}
 
 	public function _404Action() {
@@ -24,8 +22,8 @@ class DefaultController extends \Asgard\Http\Controller {
 		$user = isset($controller->user) && $controller->user ? $controller->user:null;
 		return \Asgard\Templating\PHPTemplate::renderFile(dirname(__DIR__).'/html/default/layout.php', [
 			'controller' => $controller,
-			'user' => $user,
-			'content'=>$content
+			'user'       => $user,
+			'content'    => $content
 		]);
 	}
 }

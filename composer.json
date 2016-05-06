@@ -14,7 +14,8 @@
         "asgard/behaviors": "0.*",
         "asgard/jsonentities": "0.*",
         "asgard/composer": "0.*",
-        "composer/composer": "1.0.0-alpha10@dev"
+        "composer/composer": "1.0.0-alpha10@dev",
+        "asgard/auth": "^0.2.0"
     },
     "require-dev": {
     },

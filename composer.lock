@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0021eb9245a6a26bb9758213330b7b66",
-    "content-hash": "4db765da9f84fbf1d1d70df09a3fd16c",
+    "hash": "55a68f6c2c74900eddd89ea3a3fc6041",
+    "content-hash": "b738ce4159d8f95166262926107ee90d",
     "packages": [
         {
             "name": "asgard/asgard",
@@ -87,6 +87,46 @@
             ],
             "description": "Asgard PHP Framework",
             "time": "2016-05-06 15:32:54"
+        },
+        {
+            "name": "asgard/auth",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/asgardphp/auth.git",
+                "reference": "a822f89b79ab5abbc0f0bf88b1ae17386409a407"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/asgardphp/auth/zipball/a822f89b79ab5abbc0f0bf88b1ae17386409a407",
+                "reference": "a822f89b79ab5abbc0f0bf88b1ae17386409a407",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Asgard\\Auth\\": "."
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michel Hognerud",
+                    "email": "michel@hognerud.net"
+                }
+            ],
+            "time": "2014-10-13 13:15:54"
         },
         {
             "name": "asgard/behaviors",

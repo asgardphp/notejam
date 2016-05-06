@@ -4,7 +4,7 @@
         <?php if($user): ?>
         <?=$user?>:&nbsp; <a href="<?=$controller->url(['Notejam\Controller\User', 'settings'])?>">Account settings</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controller\User', 'signout'])?>">Sign out</a>
         <?php else: ?>
-        <a href="<?=$controller->url(['Notejam\Controller\User', 'signup'])?>">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controller\User', 'signin'])?>">Sign in</a>
+        <a href="<?=$controller->url(['Notejam\Controller\PublicUser', 'signup'])?>">Sign up</a>&nbsp;&nbsp;&nbsp;<a href="<?=$controller->url(['Notejam\Controller\PublicUser', 'signin'])?>">Sign in</a>
         <?php endif ?>
       </div>
     </div>

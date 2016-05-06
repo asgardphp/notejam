@@ -5,13 +5,10 @@ namespace Notejam\Controller;
  * @Prefix("notes")
  */
 class Note extends \Asgard\Http\Controller {
-	public $user;
+	use \AuthTrait;
 	public $fragments;
 	
 	public function before(\Asgard\Http\Request $request) {
-		if(!$this->user)
-			return $this->response->redirect($this->url(['Notejam\Controller\User', 'signin']));
-
 		if(isset($request['note_id'])) {
 			$this->note = $this->user->notes()->load($request['note_id']);
 			if(!$this->note)
@@ -49,12 +46,11 @@ class Note extends \Asgard\Http\Controller {
 		$this->container['html']->setTitle($this->note);
 		$this->view = 'form';
 
-		$note = \Notejam\Entity\Note::load($request['note_id']);
-		$this->form = $this->getForm($note);
+		$this->form = $this->getForm($this->note);
 		if($this->form->isValid()) {
 			$this->form->save();
 			$this->getFlash()->addSuccess('Note is successfully updated.');
-			return $this->response->redirect($note->url());
+			return $this->response->redirect($this->note->url());
 		}
 	}
 
@@ -73,9 +69,8 @@ class Note extends \Asgard\Http\Controller {
 
 	protected function getForm($note) {
 		$form = $this->container->make('entityform', [$note]);
-		$user = $this->user;
-		$form->addRelation('pad', function($orm) use($user) {
-			$orm->where('user_id', $user->id);
+		$form->addRelation('pad', function($orm) {
+			$orm->where('user_id', $this->user->id);
 		});
 		return $form;
 	}

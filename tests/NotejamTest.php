@@ -4,11 +4,13 @@ class NotejamTest extends \Asgard\Http\Test {
 
 	protected function login() {
 		$browser = $this->createBrowser();
-		$browser->getSession()->set('user', $this->user->id);
+		// $browser->getSession()->set('user', $this->user->id);
+		$this->getContainer()['auth']->setUser($this->user);
 		return $browser;
 	}
 
 	public function setUp() {
+		$this->getContainer()['auth']->setUser(null);
 		$this->getContainer()['schema']->emptyAll();
 	}
 
@@ -105,7 +107,7 @@ class NotejamTest extends \Asgard\Http\Test {
 			'email' => 'test@test.com',
 			'password' => 'test',
 		]);
-		$this->assertEquals(1, $browser->getSession()->get('user'), 'user can successfully sign in');
+		$this->assertTrue($this->getContainer()['auth']->isConnected(), 'user can successfully sign in');
 	}
 	
 	public function testSigninRequired() {
