@@ -1,12 +1,12 @@
 <?php
-namespace General\Hooks;
+namespace General\Hook;
 
-class GeneralHooks extends \Asgard\Hook\HookContainer {
+class General extends \Asgard\Hook\HookContainer {
 	/**
 	 * @Hook("Asgard.Http.Start")
 	 */
 	public static function maintenance(\Asgard\Hook\Chain $chain, \Asgard\Http\Request $request) {
-		if($chain->getContainer()['kernel']['env'] == 'prod' && file_exists($chain->getContainer()['kernel']['root'].'/storage/maintenance')) {
+		if(file_exists($chain->getContainer()['kernel']['root'].'/storage/maintenance')) {
 			$controller = new \General\Controller\DefaultController;
 			$chain->getContainer()['httpKernel']->prepareController($controller, 'maintenance', $request);
 			return $controller->run('maintenance', $request);

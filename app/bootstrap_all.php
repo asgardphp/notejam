@@ -16,9 +16,7 @@ $container->register('logger', function($container) {
 
 #Error handler
 $container['errorHandler']
-	->setDebug($container['config']['debug'])
 	->ignoreDir(__DIR__.'/../vendor/nikic/php-parser/')
-	->ignoreDir(__DIR__.'/../vendor/jeremeamia/SuperClosure/')
 	->setLogPHPErrors($container['config']['log_php_errors'])
 	->setDebug($container['config']['debug']);
 $container['errorHandler']->setDebug($container['config']['debug']);
@@ -27,17 +25,8 @@ if($this->container['config']['log'] && $container->has('logger'))
 \Asgard\Debug\Debug::setURL($container['config']['debug_url']);
 
 #Translator
-$container['translator'] = new \Symfony\Component\Translation\Translator($container['config']['locale'], new \Symfony\Component\Translation\MessageSelector());
-$container['translator']->addLoader('yaml', new \Symfony\Component\Translation\Loader\YamlFileLoader());
 foreach(glob($container['kernel']->get('root').'/translations/'.$container['translator']->getLocale().'/*') as $file)
 	$container['translator']->addResource('yaml', $file, $container['translator']->getLocale());
-
-#Cache
-if($container['config']['cache'])
-	$driver = new \Doctrine\Common\Cache\FilesystemCache(__DIR__.'/../storage/cache/');
-else
-	$driver = new \Asgard\Cache\NullCache();
-$container['cache'] = new \Asgard\Cache\Cache($driver);
 
 #Loading ORM and Timestamps behavior for all entities
 $container['hooks']->hook('Asgard.Entity.LoadBehaviors', function($chain, \Asgard\Entity\Definition $definition, array &$behaviors) {
@@ -90,6 +79,27 @@ $container['flash']->setGlobalCallback(function($flash, $cat) {
 		echo '</div>';
 	}
 });
+
+#Libxml warnings
+libxml_use_internal_errors(true);
+
+if(php_sapi_name() === 'cli') {
+	$url = new \Asgard\Http\URL(new \Asgard\Http\Request, 'localhost', '', '');
+	$container['resolver']->setUrl($url);
+}
+
+#set default timezone
+try {
+	date_default_timezone_get();
+} catch(\Exception $e) {
+	date_default_timezone_set('Europe/London');
+}
+
+#user cache
+if($container['kernel']->getEnv() === 'prod')
+	$container['cache'] = new \Asgard\Cache\Cache(new Doctrine\Common\Cache\FilesystemCache('../storage/cache'));
+else
+	$container['cache'] = new \Asgard\Cache\Cache;
 
 #auth
 $container->register('auth', function($container) {

@@ -5,10 +5,15 @@ set_time_limit(0);
 /* INIT */
 require_once 'autoload.php'; #composer autoloader
 
+$input = new Symfony\Component\Console\Input\ArgvInput();
+$env = $input->getParameterOption(['--env', '-e'], 'dev');
+
 $kernel = new Kernel();
+$kernel->setEnv($env);
 $kernel['consoleMode'] = true;
+$kernel->setup();
 $app = $kernel->getContainer();
 $app['console'] = new \Asgard\Console\Application('Asgard Framework', $kernel::VERSION, $app);
-$kernel->load();
+$kernel->loadBundles();
 
 $app['console']->run()->send();
